@@ -1,0 +1,115 @@
+:root[data-theme="light"] {
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #1a1a2e;
+  --text-secondary: #555770;
+  --text-muted: #8e8ea0;
+  --primary: #4361ee;
+  --primary-hover: #3a56d4;
+  --primary-light: rgba(67, 97, 238, 0.1);
+  --accent: #7209b7;
+  --accent-hover: #5c078f;
+  --border-color: #e2e8f0;
+  --success: #28a745;
+  --success-light: rgba(40, 167, 69, 0.1);
+  --warning: #f59e0b;
+  --warning-light: rgba(245, 158, 11, 0.1);
+  --danger: #dc3545;
+  --danger-light: rgba(220, 53, 69, 0.1);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --overlay: rgba(0, 0, 0, 0.5);
+  --progress-bg: #e9ecef;
+  --progress-fill: #4361ee;
+  --status-not-started: #6c757d;
+  --status-not-started-bg: rgba(108, 117, 125, 0.1);
+  --status-in-progress: #f59e0b;
+  --status-in-progress-bg: rgba(245, 158, 11, 0.1);
+  --status-completed: #28a745;
+  --status-completed-bg: rgba(40, 167, 69, 0.1);
+  --module-1: #4361ee;
+  --module-2: #7209b7;
+  --module-3: #f59e0b;
+  --module-4: #06d6a0;
+  --module-5: #ef476f;
+  --module-6: #118ab2;
+  --text-on-color: #ffffff;
+}
+
+:root[data-theme="dark"] {
+  --bg-primary: #0f0f1a;
+  --bg-secondary: #1a1a2e;
+  --bg-card: #16213e;
+  --text-primary: #e8e8e8;
+  --text-secondary: #a0a0b0;
+  --text-muted: #6c6c7e;
+  --primary: #5a75f0;
+  --primary-hover: #7088f5;
+  --primary-light: rgba(90, 117, 240, 0.15);
+  --accent: #9b59b6;
+  --accent-hover: #b07cc6;
+  --border-color: #2a2a4a;
+  --success: #51cf66;
+  --success-light: rgba(81, 207, 102, 0.15);
+  --warning: #ffd43b;
+  --warning-light: rgba(255, 212, 59, 0.15);
+  --danger: #ff6b6b;
+  --danger-light: rgba(255, 107, 107, 0.15);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --overlay: rgba(0, 0, 0, 0.7);
+  --progress-bg: #2a2a4a;
+  --progress-fill: #5a75f0;
+  --status-not-started: #8e8ea0;
+  --status-not-started-bg: rgba(142, 142, 160, 0.15);
+  --status-in-progress: #ffd43b;
+  --status-in-progress-bg: rgba(255, 212, 59, 0.15);
+  --status-completed: #51cf66;
+  --status-completed-bg: rgba(81, 207, 102, 0.15);
+  --module-1: #5a75f0;
+  --module-2: #9b59b6;
+  --module-3: #ffd43b;
+  --module-4: #06d6a0;
+  --module-5: #ff6b6b;
+  --module-6: #45b7d1;
+  --text-on-color: #ffffff;
+}
+
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+$font-size-xs: 0.75rem;
+$font-size-sm: 0.875rem;
+$font-size-md: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.5rem;
+$font-size-2xl: 2rem;
+$font-size-3xl: 2.5rem;
+
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-2xl: 3rem;
+$spacing-3xl: 4rem;
+
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-round: 50%;
+$radius-pill: 9999px;
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+$transition-fast: 0.15s ease;
+$transition-normal: 0.3s ease;
+
+$shadow-sm: var(--shadow);
+$shadow-md: var(--shadow-md);
+$shadow-lg: var(--shadow-lg);

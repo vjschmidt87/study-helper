@@ -1,0 +1,85 @@
+<div class="dashboard container">
+  <!-- Loading -->
+  <div class="dashboard__loading" *ngIf="loading">
+    <p>{{ ts.t('common.loading') }}</p>
+  </div>
+
+  <!-- Error -->
+  <div class="dashboard__error" *ngIf="error && !loading">
+    <p>{{ ts.t('common.error') }}</p>
+    <button class="btn btn--primary" (click)="loadDashboard()">{{ ts.t('common.retry') }}</button>
+  </div>
+
+  <!-- Content -->
+  <ng-container *ngIf="dashboard && !loading">
+    <!-- Header -->
+    <div class="dashboard__header">
+      <h1>{{ ts.t('dashboard.title') }}</h1>
+      <p class="dashboard__welcome">{{ ts.t('dashboard.welcome') }}!</p>
+    </div>
+
+    <!-- Overall Progress -->
+    <div class="dashboard__overall">
+      <h2>{{ ts.t('dashboard.overallProgress') }}</h2>
+      <div class="dashboard__overall-bar">
+        <app-progress-bar [percentage]="dashboard.completionPercentage" height="16px" [showLabel]="true"></app-progress-bar>
+      </div>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="dashboard__stats">
+      <div class="stat-card stat-card--completed">
+        <span class="stat-card__value">{{ dashboard.completedTopics }}</span>
+        <span class="stat-card__label">{{ ts.t('dashboard.completed') }}</span>
+      </div>
+      <div class="stat-card stat-card--in-progress">
+        <span class="stat-card__value">{{ dashboard.inProgressTopics }}</span>
+        <span class="stat-card__label">{{ ts.t('dashboard.inProgress') }}</span>
+      </div>
+      <div class="stat-card stat-card--not-started">
+        <span class="stat-card__value">{{ notStartedCount }}</span>
+        <span class="stat-card__label">{{ ts.t('dashboard.notStarted') }}</span>
+      </div>
+    </div>
+
+    <!-- Module Progress -->
+    <section class="dashboard__section">
+      <h2>{{ ts.t('dashboard.moduleProgress') }}</h2>
+      <div class="dashboard__modules">
+        <div
+          class="module-card"
+          *ngFor="let mod of dashboard.moduleProgress; let i = index"
+          (click)="navigateToModules()"
+        >
+          <div class="module-card__header">
+            <span class="module-card__badge" [style.background]="'var(--module-' + (i + 1) + ')'">
+              {{ mod.moduleNumber }}
+            </span>
+            <span class="module-card__title">{{ getModuleTitle(mod) }}</span>
+          </div>
+          <app-progress-bar [percentage]="mod.completionPercentage" height="6px" [showLabel]="true"></app-progress-bar>
+          <span class="module-card__count">
+            {{ mod.completedTopics }} {{ ts.t('common.of') }} {{ mod.totalTopics }}
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="dashboard__section">
+      <h2>{{ ts.t('dashboard.recentActivity') }}</h2>
+      <div class="dashboard__activity" *ngIf="dashboard.recentActivity.length > 0; else noActivity">
+        <div class="activity-item" *ngFor="let item of dashboard.recentActivity">
+          <div class="activity-item__info">
+            <span class="activity-item__topic">{{ item.topicNumber }} - {{ getTopicTitle(item) }}</span>
+            <span class="activity-item__date">{{ item.updatedAt | date:'short' }}</span>
+          </div>
+          <app-status-badge [status]="item.status"></app-status-badge>
+        </div>
+      </div>
+      <ng-template #noActivity>
+        <p class="text-muted">{{ ts.t('dashboard.noActivity') }}</p>
+      </ng-template>
+    </section>
+  </ng-container>
+</div>

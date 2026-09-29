@@ -1,0 +1,145 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.notes {
+  padding-top: $spacing-xl;
+  padding-bottom: $spacing-2xl;
+
+  &__header {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+
+    h1 {
+      font-size: $font-size-2xl;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+  }
+
+  &__search {
+    margin-bottom: $spacing-lg;
+
+    input {
+      max-width: 400px;
+    }
+  }
+
+  &__loading, &__error {
+    @include flex-center;
+    @include flex-column;
+    gap: $spacing-md;
+    min-height: 300px;
+    color: var(--text-secondary);
+  }
+
+  &__empty {
+    @include flex-center;
+    min-height: 200px;
+    color: var(--text-muted);
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: $spacing-md;
+  }
+
+  &__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--overlay);
+    @include flex-center;
+    z-index: 200;
+  }
+
+  &__modal {
+    @include card;
+    padding: $spacing-xl;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    @include scrollbar;
+
+    h2 {
+      font-size: $font-size-xl;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: $spacing-lg;
+    }
+
+    &--sm {
+      max-width: 400px;
+      text-align: center;
+
+      p {
+        color: var(--text-secondary);
+        margin-bottom: $spacing-lg;
+      }
+    }
+  }
+
+  &__modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+  }
+}
+
+.note-card {
+  @include card;
+  @include flex-column;
+  padding: $spacing-lg;
+  gap: $spacing-md;
+  transition: all $transition-fast;
+
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
+
+  &__header {
+    @include flex-column;
+    gap: $spacing-xs;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  &__topic {
+    font-size: $font-size-xs;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  &__content {
+    color: var(--text-secondary);
+    font-size: $font-size-sm;
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  &__footer {
+    @include flex-between;
+    padding-top: $spacing-sm;
+    border-top: 1px solid var(--border-color);
+    flex-wrap: wrap;
+    gap: $spacing-sm;
+  }
+
+  &__date {
+    font-size: $font-size-xs;
+    color: var(--text-muted);
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-xs;
+  }
+}

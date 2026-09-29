@@ -1,0 +1,156 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 $spacing-lg;
+    height: 60px;
+    @include flex-between;
+  }
+
+  &__brand {
+    font-size: $font-size-xl;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--primary-hover);
+    }
+  }
+
+  &__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: $spacing-sm;
+
+    span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all $transition-fast;
+    }
+
+    &.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    &.active span:nth-child(2) {
+      opacity: 0;
+    }
+    &.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    @include respond-to($breakpoint-md) {
+      display: flex;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+
+    @include respond-to($breakpoint-md) {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: $spacing-lg;
+      flex-direction: column;
+      gap: $spacing-md;
+
+      &--open {
+        display: flex;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+
+    a {
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: $font-size-sm;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $radius-md;
+      transition: all $transition-fast;
+      text-decoration: none;
+
+      &:hover {
+        color: var(--primary);
+        background: var(--primary-light);
+      }
+
+      &.active {
+        color: var(--primary);
+        background: var(--primary-light);
+      }
+    }
+
+    @include respond-to($breakpoint-md) {
+      flex-direction: column;
+      width: 100%;
+
+      a {
+        width: 100%;
+        text-align: center;
+        padding: $spacing-sm;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    @include respond-to($breakpoint-md) {
+      flex-direction: column;
+      width: 100%;
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+
+  &__toggle {
+    background: none;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-md;
+    font-size: $font-size-sm;
+    font-family: $font-family;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+  }
+
+}

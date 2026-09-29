@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4213,http://study-helper-frontend}

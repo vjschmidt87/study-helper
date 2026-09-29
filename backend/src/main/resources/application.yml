@@ -1,0 +1,20 @@
+server:
+  port: 8093
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5445/study_helper
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4213}

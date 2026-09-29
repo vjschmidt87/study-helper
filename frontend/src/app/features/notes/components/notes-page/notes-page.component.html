@@ -1,0 +1,86 @@
+<div class="notes container">
+  <div class="notes__header">
+    <h1>{{ ts.t('notes.title') }}</h1>
+    <button class="btn btn--primary" (click)="openNewNote()">
+      {{ ts.t('notes.newNote') }}
+    </button>
+  </div>
+
+  <!-- Search -->
+  <div class="notes__search">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      [placeholder]="ts.t('notes.search')"
+      (keyup.enter)="onSearch()"
+    />
+  </div>
+
+  <!-- Loading -->
+  <div class="notes__loading" *ngIf="loading">
+    <p>{{ ts.t('common.loading') }}</p>
+  </div>
+
+  <!-- Error -->
+  <div class="notes__error" *ngIf="error && !loading">
+    <p>{{ ts.t('common.error') }}</p>
+    <button class="btn btn--primary" (click)="loadNotes()">{{ ts.t('common.retry') }}</button>
+  </div>
+
+  <!-- Notes List -->
+  <div class="notes__list" *ngIf="!loading && !error">
+    <div class="notes__empty" *ngIf="notes.length === 0">
+      <p>{{ ts.t('notes.noNotes') }}</p>
+    </div>
+
+    <div class="note-card" *ngFor="let note of notes">
+      <div class="note-card__header">
+        <h3 class="note-card__title">{{ note.title }}</h3>
+        <span class="note-card__topic">{{ getNoteTopicTitle(note) }}</span>
+      </div>
+      <p class="note-card__content">{{ getContentPreview(note.content) }}</p>
+      <div class="note-card__footer">
+        <span class="note-card__date">{{ ts.t('notes.lastUpdated') }}: {{ note.updatedAt | date:'short' }}</span>
+        <div class="note-card__actions">
+          <button class="btn btn--outline btn--sm" (click)="openEditNote(note)">{{ ts.t('common.edit') }}</button>
+          <button class="btn btn--danger btn--sm" (click)="confirmDelete(note)">{{ ts.t('common.delete') }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create/Edit Form Modal -->
+  <div class="notes__modal-overlay" *ngIf="showForm" (click)="closeForm()">
+    <div class="notes__modal" (click)="$event.stopPropagation()">
+      <h2>{{ editingNote ? ts.t('notes.editNote') : ts.t('notes.newNote') }}</h2>
+
+      <div class="form-group">
+        <label>{{ ts.t('notes.titleLabel') }}</label>
+        <input type="text" [(ngModel)]="formTitle" [placeholder]="ts.t('notes.titleLabel')" />
+      </div>
+
+      <div class="form-group">
+        <label>{{ ts.t('notes.contentLabel') }}</label>
+        <textarea [(ngModel)]="formContent" [placeholder]="ts.t('notes.contentLabel')" rows="8"></textarea>
+      </div>
+
+      <div class="notes__modal-actions">
+        <button class="btn btn--outline" (click)="closeForm()">{{ ts.t('notes.cancel') }}</button>
+        <button class="btn btn--primary" (click)="saveNote()" [disabled]="saving">
+          {{ saving ? ts.t('common.loading') : ts.t('notes.save') }}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation -->
+  <div class="notes__modal-overlay" *ngIf="noteToDelete" (click)="cancelDelete()">
+    <div class="notes__modal notes__modal--sm" (click)="$event.stopPropagation()">
+      <p>{{ ts.t('notes.deleteConfirm') }}</p>
+      <div class="notes__modal-actions">
+        <button class="btn btn--outline" (click)="cancelDelete()">{{ ts.t('notes.cancel') }}</button>
+        <button class="btn btn--danger" (click)="deleteNote()">{{ ts.t('notes.deleteNote') }}</button>
+      </div>
+    </div>
+  </div>
+</div>

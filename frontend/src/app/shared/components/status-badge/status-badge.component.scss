@@ -1,0 +1,26 @@
+@use 'variables' as *;
+
+.status-badge {
+  display: inline-block;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $radius-pill;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  &--NOT_STARTED {
+    background: var(--status-not-started-bg);
+    color: var(--status-not-started);
+  }
+
+  &--IN_PROGRESS {
+    background: var(--status-in-progress-bg);
+    color: var(--status-in-progress);
+  }
+
+  &--COMPLETED {
+    background: var(--status-completed-bg);
+    color: var(--status-completed);
+  }
+}

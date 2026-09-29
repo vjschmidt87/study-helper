@@ -1,0 +1,31 @@
+<header class="header">
+  <div class="header__container">
+    <a routerLink="/dashboard" class="header__brand" (click)="closeMenu()">
+      {{ ts.t('nav.brand') }}
+    </a>
+
+    <button class="header__hamburger" (click)="toggleMenu()" [ngClass]="{'active': menuOpen}">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="header__nav" [ngClass]="{'header__nav--open': menuOpen}">
+      <div class="header__links">
+        <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">{{ ts.t('nav.dashboard') }}</a>
+        <a routerLink="/modules" routerLinkActive="active" (click)="closeMenu()">{{ ts.t('nav.modules') }}</a>
+        <a routerLink="/schedule" routerLinkActive="active" (click)="closeMenu()">{{ ts.t('nav.schedule') }}</a>
+        <a routerLink="/notes" routerLinkActive="active" (click)="closeMenu()">{{ ts.t('nav.notes') }}</a>
+      </div>
+
+      <div class="header__actions">
+        <button class="header__toggle" (click)="ts.toggleLang()" [title]="ts.t('lang.toggle')">
+          {{ ts.isEn() ? ts.t('lang.en') : ts.t('lang.pt') }}
+        </button>
+        <button class="header__toggle" (click)="themeService.toggleTheme()" [title]="ts.t('theme.toggle')">
+          {{ themeService.isDark() ? '&#9788;' : '&#9790;' }}
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>

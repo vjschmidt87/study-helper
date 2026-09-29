@@ -1,0 +1,147 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.modules {
+  padding-top: $spacing-xl;
+  padding-bottom: $spacing-2xl;
+
+  &__title {
+    font-size: $font-size-2xl;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: $spacing-xl;
+  }
+
+  &__loading, &__error {
+    @include flex-center;
+    @include flex-column;
+    gap: $spacing-md;
+    min-height: 300px;
+    color: var(--text-secondary);
+  }
+
+  &__list {
+    @include flex-column;
+    gap: $spacing-md;
+  }
+}
+
+.module-section {
+  @include card;
+  overflow: hidden;
+
+  &__header {
+    @include flex-between;
+    padding: $spacing-lg;
+    cursor: pointer;
+    transition: background $transition-fast;
+
+    &:hover {
+      background: var(--primary-light);
+    }
+  }
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__badge {
+    @include flex-center;
+    width: 40px;
+    height: 40px;
+    border-radius: $radius-round;
+    color: var(--text-on-color);
+    font-weight: 700;
+    font-size: $font-size-lg;
+    flex-shrink: 0;
+  }
+
+  &__info {
+    @include flex-column;
+    gap: $spacing-xs;
+    min-width: 0;
+  }
+
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: var(--text-primary);
+    @include truncate;
+  }
+
+  &__weeks {
+    font-size: $font-size-sm;
+    color: var(--text-muted);
+  }
+
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $spacing-md;
+    flex-shrink: 0;
+  }
+
+  &__progress {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    width: 150px;
+
+    @include respond-to($breakpoint-sm) {
+      display: none;
+    }
+  }
+
+  &__count {
+    font-size: $font-size-xs;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  &__chevron {
+    color: var(--text-muted);
+    transition: transform $transition-fast;
+    font-size: $font-size-sm;
+
+    &--open {
+      transform: rotate(180deg);
+    }
+  }
+
+  &__content {
+    border-top: 1px solid var(--border-color);
+  }
+}
+
+.topic-row {
+  @include flex-between;
+  padding: $spacing-md $spacing-lg;
+  cursor: pointer;
+  transition: background $transition-fast;
+  border-bottom: 1px solid var(--border-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: var(--primary-light);
+  }
+
+  &__number {
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: $font-size-sm;
+    min-width: 50px;
+  }
+
+  &__title {
+    flex: 1;
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+}

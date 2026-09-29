@@ -1,0 +1,52 @@
+<div class="modules container">
+  <h1 class="modules__title">{{ ts.t('modules.title') }}</h1>
+
+  <!-- Loading -->
+  <div class="modules__loading" *ngIf="loading">
+    <p>{{ ts.t('common.loading') }}</p>
+  </div>
+
+  <!-- Error -->
+  <div class="modules__error" *ngIf="error && !loading">
+    <p>{{ ts.t('common.error') }}</p>
+    <button class="btn btn--primary" (click)="loadData()">{{ ts.t('common.retry') }}</button>
+  </div>
+
+  <!-- Content -->
+  <div class="modules__list" *ngIf="!loading && !error">
+    <div class="module-section" *ngFor="let mod of modules; let i = index">
+      <div class="module-section__header" (click)="toggleModule(mod.id)">
+        <div class="module-section__left">
+          <span class="module-section__badge" [style.background]="'var(--module-' + (i + 1) + ')'">
+            {{ mod.number }}
+          </span>
+          <div class="module-section__info">
+            <h2 class="module-section__title">{{ getModuleTitle(mod) }}</h2>
+            <span class="module-section__weeks">{{ ts.t('modules.weeks').replace('{{start}}', '' + mod.weekStart).replace('{{end}}', '' + mod.weekEnd) }}</span>
+          </div>
+        </div>
+        <div class="module-section__right">
+          <div class="module-section__progress">
+            <app-progress-bar [percentage]="getModuleProgress(mod)" height="6px"></app-progress-bar>
+            <span class="module-section__count">{{ getModuleCompletedCount(mod) }}/{{ mod.topics.length }}</span>
+          </div>
+          <span class="module-section__chevron" [ngClass]="{'module-section__chevron--open': isExpanded(mod.id)}">
+            &#9660;
+          </span>
+        </div>
+      </div>
+
+      <div class="module-section__content" *ngIf="isExpanded(mod.id)">
+        <div
+          class="topic-row"
+          *ngFor="let topic of mod.topics"
+          (click)="navigateToTopic(mod.id, topic.id)"
+        >
+          <span class="topic-row__number">{{ topic.number }}</span>
+          <span class="topic-row__title">{{ getTopicTitle(topic) }}</span>
+          <app-status-badge [status]="getTopicStatus(topic.id)"></app-status-badge>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

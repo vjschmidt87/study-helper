@@ -1,0 +1,60 @@
+<div class="schedule container">
+  <h1 class="schedule__title">{{ ts.t('schedule.title') }}</h1>
+
+  <!-- Loading -->
+  <div class="schedule__loading" *ngIf="loading">
+    <p>{{ ts.t('common.loading') }}</p>
+  </div>
+
+  <!-- Error -->
+  <div class="schedule__error" *ngIf="error && !loading">
+    <p>{{ ts.t('common.error') }}</p>
+    <button class="btn btn--primary" (click)="loadData()">{{ ts.t('common.retry') }}</button>
+  </div>
+
+  <!-- Content -->
+  <div class="schedule__table" *ngIf="!loading && !error">
+    <div class="schedule__header-row">
+      <span class="schedule__col schedule__col--weeks">{{ ts.t('schedule.weeks') }}</span>
+      <span class="schedule__col schedule__col--module">{{ ts.t('schedule.module') }}</span>
+      <span class="schedule__col schedule__col--topics">{{ ts.t('schedule.topics') }}</span>
+      <span class="schedule__col schedule__col--progress">{{ ts.t('modules.progress') }}</span>
+      <span class="schedule__col schedule__col--status">{{ ts.t('schedule.status') }}</span>
+    </div>
+
+    <div
+      class="schedule__row"
+      *ngFor="let mod of modules; let i = index"
+      [ngClass]="'schedule__row--' + getModuleStatus(mod)"
+    >
+      <span class="schedule__col schedule__col--weeks">
+        <span class="schedule__week-badge" [style.background]="'var(--module-' + (i + 1) + ')'">
+          {{ mod.weekStart }}-{{ mod.weekEnd }}
+        </span>
+      </span>
+
+      <span class="schedule__col schedule__col--module">
+        {{ getModuleTitle(mod) }}
+      </span>
+
+      <div class="schedule__col schedule__col--topics">
+        <div class="schedule__topic-list">
+          <div class="schedule__topic-item" *ngFor="let topic of mod.topics">
+            <span class="schedule__topic-name">{{ topic.number }} {{ getTopicTitle(topic) }}</span>
+            <app-status-badge [status]="getTopicStatus(topic.id)"></app-status-badge>
+          </div>
+        </div>
+      </div>
+
+      <div class="schedule__col schedule__col--progress">
+        <app-progress-bar [percentage]="getModuleProgress(mod)" height="6px" [showLabel]="true"></app-progress-bar>
+      </div>
+
+      <span class="schedule__col schedule__col--status">
+        <span class="schedule__status-label" [ngClass]="'schedule__status-label--' + getModuleStatus(mod)">
+          {{ ts.t('schedule.' + getModuleStatus(mod)) }}
+        </span>
+      </span>
+    </div>
+  </div>
+</div>

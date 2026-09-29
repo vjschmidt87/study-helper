@@ -1,0 +1,101 @@
+<div class="topic container">
+  <!-- Loading -->
+  <div class="topic__loading" *ngIf="loading">
+    <p>{{ ts.t('common.loading') }}</p>
+  </div>
+
+  <!-- Error -->
+  <div class="topic__error" *ngIf="error && !loading">
+    <p>{{ ts.t('common.error') }}</p>
+    <button class="btn btn--primary" (click)="goBack()">{{ ts.t('common.back') }}</button>
+  </div>
+
+  <!-- Content -->
+  <ng-container *ngIf="topic && !loading">
+    <!-- Breadcrumb -->
+    <nav class="topic__breadcrumb">
+      <a routerLink="/modules">{{ ts.t('nav.modules') }}</a>
+      <span class="topic__breadcrumb-sep">/</span>
+      <span>{{ getModuleTitle() }}</span>
+      <span class="topic__breadcrumb-sep">/</span>
+      <span>{{ topic.number }}</span>
+    </nav>
+
+    <h1 class="topic__title">{{ topic.number }} - {{ getTopicTitle() }}</h1>
+
+    <!-- Status Buttons -->
+    <section class="topic__section">
+      <h2>{{ ts.t('topic.status') }}</h2>
+      <div class="topic__status-buttons">
+        <button
+          *ngFor="let s of statuses"
+          class="btn"
+          [ngClass]="{
+            'btn--primary': s === currentStatus,
+            'btn--outline': s !== currentStatus
+          }"
+          (click)="updateStatus(s)"
+          [disabled]="saving"
+        >
+          {{ ts.t('status.' + s) }}
+        </button>
+      </div>
+    </section>
+
+    <!-- Concept -->
+    <section class="topic__section">
+      <h2>{{ ts.t('topic.concept') }}</h2>
+      <div class="topic__concept">
+        <p>{{ getConcept() }}</p>
+      </div>
+    </section>
+
+    <!-- Resources -->
+    <section class="topic__section" *ngIf="topic.resources.length > 0">
+      <h2>{{ ts.t('topic.resources') }}</h2>
+      <div class="topic__resources">
+        <div class="resource-item" *ngFor="let res of topic.resources">
+          <span class="resource-item__type">{{ ts.t('resourceType.' + res.type) }}</span>
+          <span class="resource-item__title" *ngIf="!res.url">{{ getResourceTitle(res) }}</span>
+          <a
+            *ngIf="res.url"
+            [href]="res.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="resource-item__link"
+          >
+            {{ getResourceTitle(res) }}
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Exercises -->
+    <section class="topic__section" *ngIf="topic.exercises.length > 0">
+      <h2>{{ ts.t('topic.exercises') }}</h2>
+      <ol class="topic__exercises">
+        <li *ngFor="let ex of topic.exercises">{{ getExerciseDesc(ex) }}</li>
+      </ol>
+    </section>
+
+    <!-- Notes -->
+    <section class="topic__section">
+      <h2>{{ ts.t('topic.notes') }}</h2>
+      <div class="topic__notes">
+        <textarea
+          [(ngModel)]="notes"
+          [placeholder]="ts.t('topic.notePlaceholder')"
+          rows="6"
+        ></textarea>
+        <button class="btn btn--primary" (click)="saveNotes()" [disabled]="saving">
+          {{ ts.t('topic.saveNote') }}
+        </button>
+      </div>
+    </section>
+
+    <!-- Back Button -->
+    <button class="btn btn--outline" (click)="goBack()">
+      {{ ts.t('topic.backToModules') }}
+    </button>
+  </ng-container>
+</div>
